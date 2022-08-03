@@ -20,7 +20,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,14 +38,13 @@ class ImageCard : ComponentActivity() {
         setContent {
             val painter = painterResource(id = R.drawable.image)
             val contentDescription = "Testing the making of card."
-            val title = "Card Title"
             Box(
                 modifier = Modifier
                     .fillMaxSize(0.5f)
                     .padding(16.dp)
             ) {
                 ImageCard(
-                    painter, contentDescription, title
+                    painter, contentDescription
                 )
             }
         }
@@ -50,9 +55,11 @@ class ImageCard : ComponentActivity() {
 fun ImageCard(
     painter: Painter,
     contentDescription: String,
-    title: String,
     modifier: Modifier = Modifier
 ) {
+
+    val fontFamily = FontFamily(Font(R.font.mouse_memoirs_regular))
+
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(15.dp),
@@ -83,7 +90,34 @@ fun ImageCard(
                     .padding(12.dp),
                 contentAlignment = Alignment.BottomStart
             ) {
-                Text(title, style = TextStyle(color = Color.White, fontSize = 16.sp))
+                Text(
+                    text = buildAnnotatedString {
+                        withStyle(
+                            style = SpanStyle(
+                                color = Color.Red,
+                                fontSize = 40.sp
+                            )
+                        ) {
+                            append("J")
+                        }
+                        append("etpack")
+                        withStyle(
+                            style = SpanStyle(
+                                color = Color.Red,
+                                fontSize = 40.sp
+                            )
+                        ) {
+                            append(" C")
+                        }
+                        append("ompose")
+                    },
+                    style = TextStyle(
+                        color = Color.White,
+                        fontSize = 20.sp,
+                        fontFamily = fontFamily,
+                        textDecoration = TextDecoration.Underline
+                    )
+                )
             }
         }
     }
